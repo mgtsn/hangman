@@ -18,11 +18,20 @@ def generate_word
   word.upcase
 end
 
+#reads in player's guess
 def get_player_guess
   print "Guess a letter: "
   guess = gets.chomp.upcase
+
+  until guess.length == 1 and guess.upcase != guess.downcase
+    puts "\nMust be a single letter"
+    print "Guess a letter: "
+    guess = gets.chomp.upcase
+  end
+  guess
 end
 
+#updates the player's guesses so far
 def update_correct_guesses(answer, guess, current)
   answer.split("").each_with_index do |letter, index|
     if letter == guess
@@ -32,6 +41,7 @@ def update_correct_guesses(answer, guess, current)
   current
 end
 
+#main game loop
 def play
   answer = generate_word
   correct_guesses = create_underscore_list(answer.length)
